@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jack Petersen — Full-Stack Developer</title>
+<meta name="description" content="Jack Petersen — full-stack developer building analytics platforms, AI-moderated products, and Shopify apps with C#/.NET, React, and Python." />
+<style>
+  :root {
+    --bg: #0b0d12;
+    --bg-soft: #12151d;
+    --card: #151922;
+    --card-hover: #1b202b;
+    --border: #262c39;
+    --text: #e7ebf3;
+    --muted: #9aa4b8;
+    --faint: #6b7488;
+    --accent: #7c9cff;
+    --accent-2: #57e0c4;
+    --accent-soft: rgba(124, 156, 255, 0.14);
+    --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    --radius: 16px;
+    --maxw: 1080px;
+  }
+  :root[data-theme="light"] {
+    --bg: #f7f8fb;
+    --bg-soft: #eef1f7;
+    --card: #ffffff;
+    --card-hover: #ffffff;
+    --border: #e2e6ef;
+    --text: #12161f;
+    --muted: #545e72;
+    --faint: #8b93a5;
+    --accent: #3a5cff;
+    --accent-2: #0fae8f;
+    --accent-soft: rgba(58, 92, 255, 0.10);
+    --shadow: 0 12px 40px rgba(20, 30, 60, 0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent-soft); }
+  img { max-width: 100%; display: block; }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: -20%; left: 50%;
+    transform: translateX(-50%);
+    width: 900px; height: 900px;
+    background: radial-gradient(circle at center, var(--accent-soft), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(140%) blur(12px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand { font-weight: 700; letter-spacing: -0.02em; font-size: 1.02rem; }
+  .brand span { color: var(--accent); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--muted); font-size: 0.92rem; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .theme-btn {
+    background: var(--card); border: 1px solid var(--border); color: var(--muted);
+    width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 1rem;
+    display: grid; place-items: center; transition: all 0.2s;
+  }
+  .theme-btn:hover { color: var(--text); border-color: var(--accent); }
+  @media (max-width: 640px) { .nav-links a { display: none; } }
+
+  /* HERO */
+  header { padding: 88px 0 64px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+  @media (max-width: 780px) { .hero-grid { grid-template-columns: 1fr; gap: 32px; } .hero-side { order: -1; } }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; color: var(--accent-2); font-weight: 600;
+    letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 22px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-2) 20%, transparent); }
+  h1 { font-size: clamp(2.3rem, 5.5vw, 3.9rem); line-height: 1.05; letter-spacing: -0.035em; font-weight: 800; margin-bottom: 22px; }
+  h1 .grad { background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .lede { font-size: clamp(1.05rem, 2.2vw, 1.25rem); color: var(--muted); max-width: 620px; }
+  .lede strong { color: var(--text); font-weight: 600; }
+
+  /* AVATAR */
+  .avatar-ring {
+    width: 190px; height: 190px; border-radius: 50%; padding: 5px;
+    background: conic-gradient(from 140deg, var(--accent), var(--accent-2), var(--accent));
+    box-shadow: 0 18px 50px color-mix(in srgb, var(--accent) 30%, transparent);
+  }
+  .avatar {
+    width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
+    background: linear-gradient(150deg, #1c2233, #0d1017);
+    display: grid; place-items: center;
+    font-size: 4.4rem; font-weight: 800; letter-spacing: -0.04em;
+    color: #fff; position: relative;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 18%; }
+  @media (max-width: 780px) { .avatar-ring { width: 150px; height: 150px; } .avatar { font-size: 3.4rem; } }
+
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 13px 22px; border-radius: 12px; font-weight: 600; font-size: 0.95rem;
+    border: 1px solid transparent; transition: transform 0.15s, box-shadow 0.2s, background 0.2s; cursor: pointer;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 40%, transparent); }
+  .btn-primary:hover { box-shadow: 0 12px 30px color-mix(in srgb, var(--accent) 55%, transparent); }
+  .btn-ghost { background: var(--card); border-color: var(--border); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); }
+  .btn svg { width: 17px; height: 17px; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 38px; color: var(--faint); font-size: 0.9rem; }
+  .meta-row span { display: inline-flex; align-items: center; gap: 8px; }
+  .meta-row svg { width: 15px; height: 15px; opacity: 0.8; }
+
+  /* SECTION */
+  section { padding: 58px 0; }
+  .sec-head { margin-bottom: 38px; }
+  .sec-num { font-size: 0.8rem; color: var(--accent); font-weight: 700; letter-spacing: 0.1em; }
+  .sec-head h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); letter-spacing: -0.03em; margin-top: 6px; font-weight: 800; }
+  .sec-head p { color: var(--muted); margin-top: 10px; max-width: 620px; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 34px; align-items: start; }
+  @media (max-width: 780px) { .about-grid { grid-template-columns: 1fr; gap: 26px; } }
+  .about-text p { color: var(--muted); font-size: 1.02rem; margin-bottom: 16px; }
+  .about-text p strong { color: var(--text); font-weight: 600; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .stat {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stat:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); transform: translateY(-2px); }
+  .stat b { display: block; font-size: 1.5rem; letter-spacing: -0.02em; background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat span { font-size: 0.82rem; color: var(--muted); }
+
+  /* PROJECTS */
+  .projects { display: flex; flex-direction: column; gap: 26px; }
+  .project {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; transition: transform 0.25s, border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  }
+  .project:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); background: var(--card-hover); box-shadow: var(--shadow); }
+
+  .p-thumb {
+    aspect-ratio: 16 / 10; overflow: hidden; position: relative;
+    border-bottom: 1px solid var(--border); background: var(--bg-soft);
+  }
+  .p-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .p-body { padding: 30px 32px 32px; }
+  .p-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .p-title { font-size: 1.42rem; font-weight: 750; letter-spacing: -0.02em; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .p-badge { font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); letter-spacing: 0.02em; }
+  .p-badge.solo { background: color-mix(in srgb, var(--accent-2) 16%, transparent); color: var(--accent-2); }
+  .p-tag { color: var(--muted); font-size: 0.95rem; margin-top: 10px; }
+  .p-desc { color: var(--muted); margin-top: 16px; font-size: 0.97rem; }
+  .p-desc strong { color: var(--text); font-weight: 600; }
+  .p-highlights { list-style: none; margin-top: 18px; display: grid; gap: 9px; }
+  .p-highlights li { position: relative; padding-left: 26px; color: var(--muted); font-size: 0.94rem; }
+  .p-highlights li::before { content: ""; position: absolute; left: 4px; top: 9px; width: 9px; height: 9px; border-radius: 3px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+  .p-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .chip { font-size: 0.78rem; padding: 5px 11px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--border); color: var(--muted); }
+  .p-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+  .plink {
+    display: inline-flex; align-items: center; gap: 7px; font-size: 0.9rem; font-weight: 600;
+    padding: 9px 15px; border-radius: 10px; border: 1px solid var(--border); color: var(--text); transition: all 0.18s;
+  }
+  .plink:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .plink.live { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+  .plink.disabled { opacity: 0.5; cursor: default; }
+  .plink.disabled:hover { border-color: var(--border); color: var(--text); transform: none; }
+  .plink svg { width: 15px; height: 15px; }
+
+  /* SKILLS */
+  .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: border-color 0.2s; }
+  .skill-card:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+  .skill-card h3 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 16px; font-weight: 700; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  /* CONTACT */
+  .contact-card { background: linear-gradient(140deg, var(--card), var(--bg-soft)); border: 1px solid var(--border); border-radius: 22px; padding: 52px 40px; text-align: center; }
+  .contact-card h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); letter-spacing: -0.03em; font-weight: 800; }
+  .contact-card p { color: var(--muted); margin: 14px auto 30px; max-width: 480px; }
+  .contact-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 34px 0; margin-top: 40px; }
+  .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; color: var(--faint); font-size: 0.88rem; }
+  .foot-links { display: flex; gap: 20px; }
+  .foot-links a:hover { color: var(--accent); }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.show { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+  @media (max-width: 640px) { .p-body { padding: 24px; } .contact-card { padding: 40px 24px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">Jack<span>.</span>Petersen</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<div id="top"></div>
+
+<header>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <h1 class="reveal">Full-stack developer<br />shipping <span class="grad">real products</span>.</h1>
+        <p class="lede reveal">I'm <strong>Jack Petersen</strong> — I build end-to-end web platforms with
+          <strong>C#/.NET</strong>, <strong>React &amp; TypeScript</strong>, and <strong>Python</strong>:
+          from two published Shopify apps, to a sports-analytics platform with a paid Pro tier, to an AI-moderated
+          review platform, to a 15-module jazz guitar course.</p>
+
+        <div class="cta-row reveal">
+          <a class="btn btn-primary" href="#work">
+            View my work
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="assets/JackPetersen_Resume.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            Download résumé
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/JackPetersenCode" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+        </div>
+
+        <div class="meta-row reveal">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Austin, TX</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> jackpetersenmusic@gmail.com</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg> (805) 888-9013</span>
+        </div>
+      </div>
+
+      <aside class="hero-side reveal">
+        <div class="avatar-ring">
+          <div class="avatar"><img src="assets/headshot.jpg" alt="Jack Petersen" /></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">01 — ABOUT</div>
+      <h2>A builder who ships end-to-end</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm a full-stack developer based in <strong>Austin, TX</strong> who likes owning a product from the
+          database schema all the way to the deployed cloud infrastructure. I completed Codecademy's
+          <strong>Computer Science</strong> and <strong>Back-end Engineer</strong> career paths.</p>
+        <p>I founded <strong>Mama Dog LLC</strong>, where I build and run commercial software end to end: two apps
+          taken through <strong>Shopify App Store review</strong> to live, paying listings, a sports-analytics platform that
+          <strong>prices every market and grades every pick in public</strong>, and an <strong>AI-moderated</strong>
+          positive-only review platform across web and mobile. I'm equally at home writing C#/.NET APIs, React &amp;
+          React Native front ends, Rust → WebAssembly functions, Python data pipelines, and Docker/Fly.io deployments.</p>
+        <p>Beyond the code, I own billing, compliance, security, and support, and I only list features on a pricing page
+          once they're built and test-enforced.</p>
+        <p>I care about clean architecture, real measurable outcomes, and shipping things people actually use.</p>
+      </div>
+      <div class="stat-grid reveal">
+        <div class="stat"><b>5,000+</b><span>picks timestamped &amp; graded in a public audit log</span></div>
+        <div class="stat"><b>2</b><span>Shopify App Store apps live with paid plans</span></div>
+        <div class="stat"><b>40</b><span>PostgreSQL tables behind a JWT-secured API</span></div>
+        <div class="stat"><b>790</b><span>SAT Math · 99th percentile</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">02 — SELECTED WORK</div>
+      <h2>Full-stack projects</h2>
+      <p>Products I designed, built, and deployed end-to-end — front end to database to cloud infrastructure.</p>
+    </div>
+
+    <div class="projects">
+
+      <!-- The Sports Betting Lab -->
+      <article class="project reveal">
+        <div class="p-thumb sbl"><img src="assets/shot-sbl.png" alt="The Sports Betting Lab live site" /></div>
+        <div class="p-body">
+          <div class="p-top">
+            <div class="p-title">The Sports Betting Lab <span class="p-badge">Sports Betting Analytics</span></div>
+          </div>
+          <div class="p-tag">Free daily sports picks with a verified, publicly auditable record, plus a paid toolkit for bettors.</div>
+          <p class="p-desc">
+            A picks and pricing platform that builds a fair price for each market from sharp-book consensus,
+            flags mispriced bets across every sport playing that day, timestamps each pick before the game starts,
+            and grades every result against the closing line.
+          </p>
+          <ul class="p-highlights">
+            <li><strong>5,000+ picks</strong> across MLB, NBA, NHL &amp; NFL, published in a downloadable <strong>CSV audit log</strong> with result, units, and CLV, losses included.</li>
+            <li>Line shopping across <strong>7 books &amp; pick'em apps</strong> (DraftKings, FanDuel, BetMGM, Caesars, ESPN BET, Sleeper, Underdog), with tiered boards and Kelly-fraction staking.</li>
+            <li><strong>Lab Pro</strong> subscription: prop hit rates vs. fair odds, a stats explorer with box scores back to 2016, and a live +EV scanner, billed through Whop.</li>
+            <li>Discord login and a <strong>Discord bot</strong> (<code>/fair</code>, <code>/parlay</code>, <code>/log</code>); automated grading from official box scores; deployed on <strong>Fly.io</strong>.</li>
+          </ul>
+          <div class="p-stack">
+            <span class="chip">Python</span><span class="chip">C# / ASP.NET Core</span><span class="chip">React</span>
+            <span class="chip">TypeScript</span><span class="chip">PostgreSQL</span><span class="chip">Discord API</span>
+            <span class="chip">Whop</span><span class="chip">Fly.io</span><span class="chip">DigitalOcean</span>
+          </div>
+          <div class="p-links">
+            <a class="plink live" href="https://sportsbettinglab.bet/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+              Live site
+            </a>
+            <a class="plink" href="https://sportsbettinglab.bet/record.csv" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg>
+              Public record
+            </a>
+            <span class="plink disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Private repo
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Reputater -->
+      <article class="project reveal">
+        <div class="p-thumb rep"><img src="assets/shot-rep.png" alt="Reputater live site" /></div>
+        <div class="p-body">
+          <div class="p-top">
+            <div class="p-title">Reputater <span class="p-badge">AI Review Platform</span></div>
+          </div>
+          <div class="p-tag">A positive-only review platform for local businesses, where every review is AI-moderated before it goes live.</div>
+          <p class="p-desc">
+            A Next.js 16 / React 19 web app, a C# .NET 10 API, and a cross-platform Expo / React Native mobile app —
+            each submitted review is analyzed by <strong>OpenAI GPT-4o</strong> for sentiment, then published or rejected with a notification.
+          </p>
+          <ul class="p-highlights">
+            <li>PostgreSQL + EF Core backend on a <strong>40-table schema</strong>, secured by JWT auth, BCrypt hashing, and per-IP rate limiting.</li>
+            <li>GPT-4o auto-moderates a self-serve ad platform against policy ahead of <strong>Stripe manual-capture billing</strong>.</li>
+            <li>Business owners claim listings, reply to reviews &amp; spotlight staff by name; reviewers level up through <strong>"tater" ranks</strong> on a public leaderboard.</li>
+            <li>Multi-channel notifications via <strong>SendGrid, Twilio &amp; Expo push</strong>, plus geo-search with Google Maps &amp; Leaflet.</li>
+            <li>Dockerized with <strong>Cloudflare R2</strong> object storage and automated migrations on startup.</li>
+          </ul>
+          <div class="p-stack">
+            <span class="chip">Next.js 16</span><span class="chip">React 19</span><span class="chip">C# / .NET 10</span>
+            <span class="chip">React Native</span><span class="chip">OpenAI GPT-4o</span><span class="chip">PostgreSQL</span>
+            <span class="chip">Stripe</span><span class="chip">Twilio</span><span class="chip">Cloudflare R2</span>
+          </div>
+          <div class="p-links">
+            <a class="plink live" href="https://reputater.com/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+              Live site
+            </a>
+            <a class="plink" href="https://github.com/JackPetersenCode/kudos" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+              Code
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Paylogic -->
+      <article class="project reveal">
+        <div class="p-thumb pay"><img src="assets/shot-pay.png" alt="Paylogic live site" /></div>
+        <div class="p-body">
+          <div class="p-top">
+            <div class="p-title">Paylogic <span class="p-badge solo">Published Shopify App</span></div>
+          </div>
+          <div class="p-tag">A Shopify App Store checkout app that hides, renames &amp; reorders payment methods, built as the replacement for retired Shopify Scripts.</div>
+          <p class="p-desc">
+            Payment-method rules are evaluated on every cart by a <strong>Rust → WebAssembly Shopify Function</strong>,
+            with an embedded merchant admin built on React Router 7, TypeScript, and Vite.
+          </p>
+          <ul class="p-highlights">
+            <li>One-click <strong>Scripts importer</strong> and visual rule builder with <strong>18 conditions</strong> (cart total, country &amp; ZIP, customer &amp; product tags, lifetime spend, risk score) combined through OR groups.</li>
+            <li>Risk-gated rule that hides Cash on Delivery using <strong>Shopify's order-risk signals</strong>, a capability Scripts never had.</li>
+            <li>Type-safe Admin API access via <strong>Node.js, Prisma ORM &amp; Shopify GraphQL codegen</strong>.</li>
+            <li>Tiered subscription billing ($1.99–$9.99/mo, annual discount, 3-day trial), plan-gated rules, and <strong>config versioning &amp; rollback</strong> (50-snapshot history).</li>
+            <li>Pre-caches customer/product tags into metafields via webhooks to <strong>optimize checkout latency</strong>.</li>
+            <li>Handles GDPR privacy/redaction webhooks; deployed to <strong>Fly.io</strong> with Docker and automated Prisma migrations.</li>
+          </ul>
+          <div class="p-stack">
+            <span class="chip">Rust / WASM</span><span class="chip">Shopify Functions</span><span class="chip">React Router 7</span>
+            <span class="chip">TypeScript</span><span class="chip">Node.js</span><span class="chip">Prisma</span>
+            <span class="chip">GraphQL</span><span class="chip">Fly.io</span><span class="chip">Docker</span>
+          </div>
+          <div class="p-links">
+            <a class="plink live" href="https://paylogic.dev/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+              Live site
+            </a>
+            <span class="plink disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Private repo
+            </span>
+          </div>
+        </div>
+      </article>
+      <!-- Counterline -->
+      <article class="project reveal">
+        <div class="p-thumb cl"><img src="assets/shot-cl.png" alt="Counterline live site" /></div>
+        <div class="p-body">
+          <div class="p-top">
+            <div class="p-title">Counterline <span class="p-badge solo">Published Shopify App</span></div>
+          </div>
+          <div class="p-tag">A B2B quoting and RFQ app that prices every quote from the buyer's own Shopify catalog.</div>
+          <p class="p-desc">
+            Built on Shopify's native B2B companies, locations, and catalogs and launched after Shopify opened B2B to every
+            plan in April 2026. Competitors fall back to retail pricing through plain Draft Orders; Counterline quotes from each
+            buyer's real catalog price, and converted orders keep their terms and negotiated prices.
+          </p>
+          <ul class="p-highlights">
+            <li>Found and test-locked <strong>two easy-to-miss Shopify API behaviors</strong> that silently produce wrong prices on catalog lookup and draft-order conversion.</li>
+            <li><strong>Exact decimal money math</strong> end to end, backed by <strong>68 test suites</strong>.</li>
+            <li>Storefront quote-request extension, plus tiered plans on <strong>Shopify Managed Pricing</strong> with entitlements audited against the live listing.</li>
+          </ul>
+          <div class="p-stack">
+            <span class="chip">TypeScript</span><span class="chip">React Router 7</span><span class="chip">Polaris</span>
+            <span class="chip">App Bridge</span><span class="chip">Prisma</span><span class="chip">PostgreSQL</span><span class="chip">Fly.io</span>
+          </div>
+          <div class="p-links">
+            <a class="plink live" href="https://counterline.app/" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+              Live site
+            </a>
+            <span class="plink disabled">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Private repo
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Jazz Guitar Course -->
+      <article class="project reveal">
+        <div class="p-thumb jazz"><img src="assets/shot-jazz.png" alt="Jazz Guitar Course chord dictionary" /></div>
+        <div class="p-body">
+          <div class="p-top">
+            <div class="p-title">Jazz Guitar Course <span class="p-badge">Interactive Course</span></div>
+          </div>
+          <div class="p-tag">A complete beginner-to-professional jazz guitar course, generated and fact-checked by a music-theory engine.</div>
+          <p class="p-desc">
+            15 modules and 80 lessons, from reading and fretboard basics through voicings, comping, the blues, bebop language,
+            reharmonization, chord melody, and professional skills. Every lesson has playable notation and tab with audio, generated
+            chord diagrams and fretboard maps, a practice assignment, and a quiz.
+          </p>
+          <ul class="p-highlights">
+            <li>A Python <strong>music-theory engine</strong> is the single source of truth: <strong>8,800+ chord voicings</strong> and every theory table are generated, then verified by playing the frets back through a fretboard model.</li>
+            <li><strong>439 notated examples</strong> are parsed by alphaTab at build time; the build checks every bar's rhythm and that claimed chord tones really fit the chord.</li>
+            <li>Interactive tools: chord dictionary with a <strong>voice-leading assistant</strong>, scale finder, fretboard &amp; ear trainers, and a metronome.</li>
+            <li><strong>258 pytest tests</strong> pin the engine to textbook theory, and a headless-browser smoke test opens all 107 pages.</li>
+          </ul>
+          <div class="p-stack">
+            <span class="chip">Python</span><span class="chip">Jinja2</span><span class="chip">Markdown</span>
+            <span class="chip">JavaScript</span><span class="chip">alphaTab</span><span class="chip">SVG</span>
+            <span class="chip">pytest</span><span class="chip">Playwright</span>
+          </div>
+          <div class="p-links">
+            <a class="plink live" href="jazz/index.html" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+              Open course
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">03 — TOOLKIT</div>
+      <h2>Technical skills</h2>
+      <p>The stack I reach for across the front end, back end, data, and infrastructure.</p>
+    </div>
+
+    <div class="skill-grid">
+      <div class="skill-card reveal">
+        <h3>Frontend</h3>
+        <div class="skill-tags">
+          <span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">React</span>
+          <span class="chip">Next.js 16</span><span class="chip">React Router 7</span><span class="chip">React Native (Expo)</span>
+          <span class="chip">Redux</span><span class="chip">Tailwind CSS</span><span class="chip">Material UI</span>
+          <span class="chip">d3.js</span><span class="chip">Vite</span><span class="chip">Jest / Playwright</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Backend</h3>
+        <div class="skill-tags">
+          <span class="chip">C#</span><span class="chip">.NET 8 / 10</span><span class="chip">ASP.NET Core</span>
+          <span class="chip">EF Core</span><span class="chip">Python</span><span class="chip">Node.js / Express</span>
+          <span class="chip">FastAPI</span><span class="chip">Django</span><span class="chip">Flask</span>
+          <span class="chip">Prisma</span><span class="chip">PostgreSQL</span><span class="chip">GraphQL</span>
+          <span class="chip">REST</span><span class="chip">JWT / OAuth</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>ML &amp; Data</h3>
+        <div class="skill-tags">
+          <span class="chip">scikit-learn</span><span class="chip">XGBoost</span><span class="chip">LightGBM</span>
+          <span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">Ensemble modeling</span>
+          <span class="chip">Feature engineering</span><span class="chip">Backtesting / ROI</span><span class="chip">psycopg2</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Integrations</h3>
+        <div class="skill-tags">
+          <span class="chip">Shopify (Admin GraphQL, Functions)</span><span class="chip">Stripe</span><span class="chip">OpenAI GPT-4o</span>
+          <span class="chip">Twilio</span><span class="chip">SendGrid</span><span class="chip">Resend</span>
+          <span class="chip">Google Maps / Leaflet</span><span class="chip">The Odds API</span><span class="chip">MLB Stats API</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>DevOps &amp; Cloud</h3>
+        <div class="skill-tags">
+          <span class="chip">Docker</span><span class="chip">AWS (EC2, ECS, ECR, RDS, S3)</span><span class="chip">Cloudflare R2</span>
+          <span class="chip">Fly.io</span><span class="chip">Nginx</span><span class="chip">PM2</span>
+          <span class="chip">Netlify</span><span class="chip">Render</span><span class="chip">Git / GitHub</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3>Also</h3>
+        <div class="skill-tags">
+          <span class="chip">Rust (WebAssembly)</span><span class="chip">BCrypt</span><span class="chip">Rate limiting</span>
+          <span class="chip">CSV / JSON pipelines</span><span class="chip">Discord bots, OAuth &amp; webhooks</span><span class="chip">Whop billing</span><span class="chip">Expo Push</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-card reveal">
+      <h2>Let's build something.</h2>
+      <p>I'm open to full-stack developer roles and interesting projects. The fastest way to reach me is email — or take a look at the code on GitHub.</p>
+      <div class="contact-row">
+        <a class="btn btn-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=jackpetersenmusic@gmail.com&su=Hello%20Jack" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          Email me
+        </a>
+        <a class="btn btn-ghost" href="assets/JackPetersen_Resume.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Résumé
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/JackPetersenCode" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          @JackPetersenCode
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>© 2026 Jack Petersen · Austin, TX</div>
+    <div class="foot-links">
+      <a href="https://github.com/JackPetersenCode" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=jackpetersenmusic@gmail.com" target="_blank" rel="noopener">Email</a>
+      <a href="assets/JackPetersen_Resume.pdf" download>Résumé</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeBtn');
+    var saved = localStorage.getItem('theme');
+    if (saved) root.setAttribute('data-theme', saved);
+    function sync() { btn.textContent = root.getAttribute('data-theme') === 'light' ? '☀️' : '🌙'; }
+    sync();
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      sync();
+    });
+  })();
+
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('show'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('show'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+
+</body>
+</html>
